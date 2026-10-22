@@ -11,6 +11,7 @@ export class GameScreenView implements View {
 	private scoreText: Konva.Text;
 	private timerText: Konva.Text;
 
+	
 	constructor(onLemonClick: () => void) {
 		this.group = new Konva.Group({ visible: false });
 
@@ -48,6 +49,8 @@ export class GameScreenView implements View {
 
 		// TODO: Task 2 - Load and display lemon image using Konva.Image.fromURL()
 		// Placeholder circle (remove this when implementing the image)
+
+		
 		const placeholder = new Konva.Circle({
 			x: STAGE_WIDTH / 2,
 			y: STAGE_HEIGHT / 2,
@@ -59,8 +62,24 @@ export class GameScreenView implements View {
 			.width(100)
 			.height(100);
 		placeholder.on("click", onLemonClick);
-		this.lemonImage = placeholder;
-		this.group.add(this.lemonImage);
+
+		Konva.Image.fromURL("/lemon.png", (image) =>{
+			//this.group.getLayer().add(image);
+			this.lemonImage = image
+			this.group.add(this.lemonImage);
+			this.lemonImage.width(100)
+			this.lemonImage.height(100)
+
+			this.lemonImage.offsetX(image.height()/2)
+			this.lemonImage.offsetY(image.width()/2)
+
+			this.lemonImage.x(STAGE_HEIGHT/2)
+			this.lemonImage.y(STAGE_WIDTH/2)
+
+			this.lemonImage.on("click", onLemonClick);
+		})
+
+
 	}
 
 	/**
